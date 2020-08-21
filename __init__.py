@@ -1,1 +1,0 @@
-from .mains import main
