@@ -1,0 +1,27 @@
+Last login: Fri Aug 21 01:17:49 on ttys000
+nancykoo@Nas-MacBook-Pro ~ % python3
+Python 3.8.5 (v3.8.5:580fbb018f, Jul 20 2020, 12:11:27) 
+[Clang 6.0 (clang-600.0.57)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> quit()
+nancykoo@Nas-MacBook-Pro ~ % cd /Users/nancykoo/Desktop/Web\ Scrapping.py 
+cd: not a directory: /Users/nancykoo/Desktop/Web Scrapping.py
+nancykoo@Nas-MacBook-Pro ~ % python3 Web Scrapping.py install
+/Library/Frameworks/Python.framework/Versions/3.8/bin/python3: can't open file 'Web': [Errno 2] No such file or directory
+nancykoo@Nas-MacBook-Pro ~ % cd /Users/nancykoo/Desktop/MindsLab 
+nancykoo@Nas-MacBook-Pro MindsLab % python3 Web Scrapping.py install
+/Library/Frameworks/Python.framework/Versions/3.8/bin/python3: can't open file 'Web': [Errno 2] No such file or directory
+nancykoo@Nas-MacBook-Pro MindsLab % image-scraper --max-images 10 https://en.wikipedia.org/wiki/Korea
+
+ImageScraper
+============
+Requesting page....
+
+Found 79 images: 
+Progress: 100% ||||||||||||||||||||||||||||||||||||||| Time: 00:00:01  71.00 B/s
+
+Done!
+Downloaded 10 images
+Failed: 0
+
+nancykoo@Nas-MacBook-Pro MindsLab % 
