@@ -9,10 +9,8 @@ from selenium.webdriver.common.keys import Keys
 
 ###initial set
 
-folder = ".image/"
 url = "https://www.google.com/search"
-webDriver = "./chromedriver.exe"
-searchItem = "door"
+searchItem = "dog"
 size = 300
 
 params ={
@@ -25,10 +23,10 @@ params ={
 #Type in the URL
 
 url = url+"?"+urllib.parse.urlencode(params)
-browser = webdriver.Chrome(webDriver)
+driver = webdriver.Chrome()
 time.sleep(0.5)
-browser.get(url)
-html = browser.page_source
+driver.get(url)
+html = driver.page_source
 time.sleep(0.5)
 
 #Get number of images for a page
@@ -38,7 +36,7 @@ img4page = len(soup_temp.findAll("img"))
 
 #Scroll the page down 
 
-elem = browser.find_element_by_tag_name("body")
+elem = driver.find_element_by_tag_name("body")
 imgCnt =0
 while imgCnt < size*10:
     elem.send_keys(Keys.PAGE_DOWN)
@@ -46,14 +44,14 @@ while imgCnt < size*10:
     print(imgCnt)
     time.sleep(rnd)
     imgCnt+=img4page
-    
-#Create HTML
 
-html = browser.page_source
+#Find all the images
+
+html = driver.page_source
 soup = BeautifulSoup(html,'html.parser')
 img = soup.findAll("img")
 
-browser.find_elements_by_tag_name('img')
+driver.find_elements_by_tag_name('img')
 
 fileNum=0
 srcURL=[]
@@ -64,18 +62,23 @@ for line in img:
       srcURL.append(line['data-src'])
       fileNum+=1
       
-#Make a folder and save images in that directory
+#Create directory and save images there
 
-saveDir = folder+searchItem
+dir_path ='./img/' 
+dir_name = searchItem
+directory = dir_name + dir_path
+parent_dir = "/Users/nancykoo/Desktop/ImageScraper"
+path = os.path.join(parent_dir, directory) 
+os.mkdir(path) 
+print("Directory '%s' created" %directory) 
 
-try:
-    if not(os.path.isdir(saveDir)):
-        os.makedirs(os.path.join(saveDir))
-except OSError as e:
-    if e.errno != errno.EEXIST:
-        print("Failed to create directory!!!!!")
-        raise
-
-for i,src in zip(range(fileNum),srcURL):
-    urllib.request.urlretrieve(src, saveDir+"/"+str(i)+".jpg")
-    print(i,"saved")
+n=1
+for i in img :  
+  imgUrl = i['data-src'] 
+  with urlopen(imgUrl) as f: 
+      with open(path + dir_name + str(n) + '.jpg', 'wb') as h:  
+          img = f.read() 
+          h.write(img) 
+      n += 1 
+      print(imgUrl)          
+print('Download complete') 
